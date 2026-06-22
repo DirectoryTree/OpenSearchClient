@@ -1,0 +1,55 @@
+{
+    "name": "directorytree/opensearch-client",
+    "description": "A Laravel integration for the official OpenSearch PHP client",
+    "keywords": [
+        "laravel",
+        "opensearch",
+        "client",
+        "php"
+    ],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Steve Bauman",
+            "email": "steven_bauman@outlook.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "DirectoryTree\\OpenSearchClient\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "DirectoryTree\\OpenSearchClient\\Tests\\": "tests"
+        }
+    },
+    "require": {
+        "php": "^8.2",
+        "guzzlehttp/guzzle": "^7.0",
+        "illuminate/support": "^11.0|^12.0|^13.0",
+        "opensearch-project/opensearch-php": "^2.6"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^9.0|^10.0|^11.0",
+        "laravel/pint": "^1.0",
+        "pestphp/pest": "^3.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true,
+            "pestphp/pest-plugin": true
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "DirectoryTree\\OpenSearchClient\\OpenSearchClientServiceProvider"
+            ],
+            "aliases": {
+                "OpenSearch": "DirectoryTree\\OpenSearchClient\\Facades\\OpenSearch"
+            }
+        }
+    }
+}

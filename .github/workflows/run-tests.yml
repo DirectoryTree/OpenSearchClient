@@ -1,0 +1,73 @@
+name: run-tests
+
+on:
+  push:
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    services:
+      opensearch:
+        image: opensearchproject/opensearch:${{ matrix.opensearch }}
+        env:
+          discovery.type: single-node
+          DISABLE_SECURITY_PLUGIN: true
+          OPENSEARCH_JAVA_OPTS: -Xms512m -Xmx512m
+        ports:
+          - 9200:9200
+
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ubuntu-latest]
+        opensearch: [2.19.3, 3.7.0]
+        php: [8.4, 8.3, 8.2]
+        include:
+          - php: 8.4
+            laravel: 13.*
+            testbench: 11.*
+
+          - php: 8.3
+            laravel: 12.*
+            testbench: 10.*
+
+          - php: 8.2
+            laravel: 11.*
+            testbench: 9.*
+
+    name: P${{ matrix.php }} - L${{ matrix.laravel }} - OS${{ matrix.opensearch }} - ${{ matrix.os }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, fileinfo
+          coverage: none
+
+      - name: Install dependencies
+        run: |
+          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update --no-blocking
+          composer update --prefer-dist --no-interaction --no-blocking
+
+      - name: Wait for OpenSearch
+        run: |
+          for attempt in {1..60}; do
+            if curl --fail --silent http://127.0.0.1:9200 > /dev/null; then
+              exit 0
+            fi
+
+            sleep 1
+          done
+
+          echo "OpenSearch did not become available in time."
+          docker logs "${{ job.services.opensearch.id }}"
+          exit 1
+
+      - name: Execute tests
+        run: vendor/bin/pest tests/Integration tests/Unit --ci
+        env:
+          OPENSEARCH_HOST: http://127.0.0.1:9200
