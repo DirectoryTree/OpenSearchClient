@@ -6,8 +6,8 @@ return [
     | Default OpenSearch Connection
     |--------------------------------------------------------------------------
     |
-    | This option controls the OpenSearch connection that will be returned by
-    | default when no connection name is requested. You may define
+    | This option controls the OpenSearch connection that will be returned
+    | by default when no connection name is provided. You may define any
     | additional connections below and switch between them as needed.
     |
     */
