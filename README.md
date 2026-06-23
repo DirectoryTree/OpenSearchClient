@@ -1,6 +1,15 @@
-# OpenSearch Client
+<h1 align="center">OpenSearch Client</h1>
 
-A Laravel integration for the official [OpenSearch PHP client](https://github.com/opensearch-project/opensearch-php).
+<p align="center">A Laravel integration for the <a href="https://github.com/opensearch-project/opensearch-php">OpenSearch PHP client</a>.</p>
+
+<p align="center">
+<a href="https://github.com/directorytree/opensearch-client/actions"><img src="https://img.shields.io/github/actions/workflow/status/directorytree/opensearch-client/run-tests.yml?branch=master&style=flat-square"></a>
+<a href="https://packagist.org/packages/directorytree/opensearch-client"><img src="https://img.shields.io/packagist/v/directorytree/opensearch-client.svg?style=flat-square"></a>
+<a href="https://packagist.org/packages/directorytree/opensearch-client"><img src="https://img.shields.io/packagist/dt/directorytree/opensearch-client.svg?style=flat-square"></a>
+<a href="https://packagist.org/packages/directorytree/opensearch-client"><img src="https://img.shields.io/packagist/l/directorytree/opensearch-client.svg?style=flat-square"></a>
+</p>
+
+---
 
 ## Installation
 
