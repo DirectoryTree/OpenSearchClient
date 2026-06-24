@@ -83,3 +83,9 @@ use DirectoryTree\OpenSearchClient\Facades\OpenSearch;
 
 $client = OpenSearch::connection('write');
 ```
+
+## Credits
+
+This package builds on a lot of the foundation and prior work from [Ivan Babenko](https://github.com/babenkoivan) and his Elasticsearch Laravel ecosystem packages.
+
+We're grateful for the work he has shared with the Laravel community. If this package helps your work, consider supporting Ivan through [GitHub Sponsors](https://github.com/sponsors/babenkoivan).
